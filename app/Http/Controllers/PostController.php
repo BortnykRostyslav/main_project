@@ -95,7 +95,7 @@ class PostController extends Controller
     }
 
     public function update(){
-        $post = Post::find(200);
+        $post = Post::find(7);
 
         $post->update([
             'title' => 'update',
@@ -106,5 +106,13 @@ class PostController extends Controller
         ]);
 
         dd('updated');
+    }
+
+    public function delete(){
+        $post  = Post::find(2);
+
+        $post->delete();
+
+        dd('delete');
     }
 }
