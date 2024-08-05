@@ -115,4 +115,51 @@ class PostController extends Controller
 
         dd('delete');
     }
+
+    public function FirstOrCreate(){
+
+        $anotherPost = [
+            'title' => 'Another Post Title',
+            'content' => 'This is the content of the another post.',
+            'image' => 'another.jpg',
+            'likes' => 530,
+            'is_published' => 1,
+        ];
+
+        $post = Post::firstOrCreate([
+            'title' => 'Another_2 Post Title'
+        ],[
+            'title' => 'Another Post Title',
+            'content' => 'This is the content of the another post.',
+            'image' => 'another.jpg',
+            'likes' => 530,
+            'is_published' => 1,
+        ]);
+
+        dump($post->content);
+        dd('end');
+    }
+
+    public function UpdateOrCreate(){
+        $anotherPost = [
+            'title' => 'Updateorcreate Post Title',
+            'content' => 'Updateorcreate This is the content of the another post.',
+            'image' => 'Updadeorcreate.jpg',
+            'likes' => 53,
+            'is_published' => 1,
+        ];
+
+        $post = Post::updateOrCreate([
+            'title' => 'Another_2 Post Title'
+        ],[
+            'title' => 'It`s not update Post Title',
+            'content' => 'It`s not update This is the content of the another post.',
+            'image' => 'It`s not update.jpg',
+            'likes' => 53,
+            'is_published' => 1,
+        ]);
+
+        dd($post->content);
+    }
 }
+
