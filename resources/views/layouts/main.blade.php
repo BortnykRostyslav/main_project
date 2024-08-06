@@ -14,7 +14,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <li><a class="nav-link active"href="{{ route('main.index') }}">Main</a></li>
+                    <li><a class="nav-link active" href="{{ route('main.index') }}">Main</a></li>
                     <li><a class="nav-link" href="{{ route('post.index') }}">Posts</a></li>
                     <li><a class="nav-link" href="{{ route('about.index') }}">About</a></li>
                     <li><a class="nav-link" href="{{ route('contact.index') }}">Contacts</a></li>

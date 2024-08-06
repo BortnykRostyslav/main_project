@@ -10,100 +10,46 @@ class PostController extends Controller
     public function index(){
         $posts = Post::all();
 
-        return view('posts', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
     public function create(){
-        $postsArr = [
-            [
-                'title' => 'First Post Title',
-                'content' => 'This is the content of the first post.',
-                'image' => 'first_image.jpg',
-                'likes' => 10,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'Second Post Title',
-                'content' => 'This is the content of the second post.',
-                'image' => 'second_image.jpg',
-                'likes' => 20,
-                'is_published' => 0,
-            ],
-            [
-                'title' => 'Third Post Title',
-                'content' => 'This is the content of the third post.',
-                'image' => 'third_image.jpg',
-                'likes' => 30,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'Fourth Post Title',
-                'content' => 'This is the content of the fourth post.',
-                'image' => 'fourth_image.jpg',
-                'likes' => 40,
-                'is_published' => 0,
-            ],
-            [
-                'title' => 'Fifth Post Title',
-                'content' => 'This is the content of the fifth post.',
-                'image' => 'fifth_image.jpg',
-                'likes' => 50,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'Sixth Post Title',
-                'content' => 'This is the content of the sixth post.',
-                'image' => 'sixth_image.jpg',
-                'likes' => 60,
-                'is_published' => 0,
-            ],
-            [
-                'title' => 'Seventh Post Title',
-                'content' => 'This is the content of the seventh post.',
-                'image' => 'seventh_image.jpg',
-                'likes' => 70,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'Eighth Post Title',
-                'content' => 'This is the content of the eighth post.',
-                'image' => 'eighth_image.jpg',
-                'likes' => 80,
-                'is_published' => 0,
-            ],
-            [
-                'title' => 'Ninth Post Title',
-                'content' => 'This is the content of the ninth post.',
-                'image' => 'ninth_image.jpg',
-                'likes' => 90,
-                'is_published' => 1,
-            ],
-            [
-                'title' => 'Tenth Post Title',
-                'content' => 'This is the content of the tenth post.',
-                'image' => 'tenth_image.jpg',
-                'likes' => 100,
-                'is_published' => 0,
-            ],
-        ];
-
-        Post::insert($postsArr);
-
-        dd('created');
+        return view('post.create');
     }
 
-    public function update(){
-        $post = Post::find(7);
+    public function store(){
 
-        $post->update([
-            'title' => 'update',
-            'content' => 'update',
-            'image' => 'update',
-            'likes' => 33,
-            'is_published' => 1,
+        $data = request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
         ]);
 
-        dd('updated');
+        Post::create($data);
+
+        return redirect()->route('post.index');
+    }
+
+    public function show(Post $post){
+        return view('post.show', compact('post'));
+    }
+
+    public function edit(Post $post){
+        return view('post.edit', compact('post'));
+    }
+
+    public function update(Post $post){
+
+        $data = request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
+        ]);
+
+        $post->update($data);
+
+        return redirect()->route('post.show', $post->id);
+
     }
 
     public function delete(){
@@ -112,6 +58,13 @@ class PostController extends Controller
         $post->delete();
 
         dd('delete');
+    }
+
+    public function destroy(Post $post){
+
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 
     public function FirstOrCreate(){
