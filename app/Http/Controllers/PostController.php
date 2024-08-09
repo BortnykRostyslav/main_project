@@ -8,45 +8,55 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        $post = Post::find(2);
+        $posts = Post::all();
 
-        dd($post->tags);
-        //return view('post.index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
-    public function create(){
-        return view('post.create');
+    public function create()
+    {
+        $categories = Category::all();
+
+        return view('post.create', compact('categories'));
     }
 
-    public function store(){
+    public function store()
+    {
 
         $data = request()->validate([
             'title' => 'string',
             'content' => 'string',
             'image' => 'string',
+            'category_id' => '',
         ]);
-
         Post::create($data);
 
         return redirect()->route('post.index');
     }
 
-    public function show(Post $post){
+    public function show(Post $post)
+    {
         return view('post.show', compact('post'));
     }
 
-    public function edit(Post $post){
-        return view('post.edit', compact('post'));
+    public function edit(Post $post)
+    {
+        $categories = Category::all();
+
+        return view('post.edit', compact('post', 'categories'));
     }
 
-    public function update(Post $post){
+    public function update(Post $post)
+    {
 
         $data = request()->validate([
             'title' => 'string',
             'content' => 'string',
             'image' => 'string',
+            'category_id' => '',
         ]);
 
         $post->update($data);
@@ -55,22 +65,25 @@ class PostController extends Controller
 
     }
 
-    public function delete(){
-        $post  = Post::find(2);
+    public function delete()
+    {
+        $post = Post::find(2);
 
         $post->delete();
 
         dd('delete');
     }
 
-    public function destroy(Post $post){
+    public function destroy(Post $post)
+    {
 
         $post->delete();
 
         return redirect()->route('post.index');
     }
 
-    public function FirstOrCreate(){
+    public function FirstOrCreate()
+    {
 
         $anotherPost = [
             'title' => 'Another Post Title',
@@ -82,7 +95,7 @@ class PostController extends Controller
 
         $post = Post::firstOrCreate([
             'title' => 'Another_2 Post Title'
-        ],[
+        ], [
             'title' => 'Another Post Title',
             'content' => 'This is the content of the another post.',
             'image' => 'another.jpg',
@@ -94,7 +107,8 @@ class PostController extends Controller
         dd('end');
     }
 
-    public function UpdateOrCreate(){
+    public function UpdateOrCreate()
+    {
         $anotherPost = [
             'title' => 'Updateorcreate Post Title',
             'content' => 'Updateorcreate This is the content of the another post.',
@@ -105,7 +119,7 @@ class PostController extends Controller
 
         $post = Post::updateOrCreate([
             'title' => 'Another_2 Post Title'
-        ],[
+        ], [
             'title' => 'It`s not update Post Title',
             'content' => 'It`s not update This is the content of the another post.',
             'image' => 'It`s not update.jpg',

@@ -4,6 +4,7 @@
             <div>{{{ $post->id }}}. {{ $post->title }}</div>
             <div>{{ $post->content }}</div>
     </div>
+    <br>
     <div>
         <a href="{{ route('post.edit', $post->id) }}" class="btn btn-warning mb-3">Edit</a>
     </div>
