@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function index(){
 
-        $post = Post::find(6);
+        $post = Post::find(2);
 
         dd($post->tags);
         //return view('post.index', compact('posts'));
