@@ -51,7 +51,13 @@
                 </select>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+            <br>
+            <div>
+                <a href="{{ route('post.index') }}" class="btn btn-success mb-3">Back</a>
+            </div>
         </form>
     </div>
 @endsection
